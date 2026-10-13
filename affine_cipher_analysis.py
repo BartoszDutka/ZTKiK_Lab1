@@ -8,7 +8,6 @@ except ModuleNotFoundError:
 
 ALPHABET = "ABCDEFGHIJKLMNOPQRSTUVWXYZ"
 
-# Tabela 2.1 — prawdopodobieństwo wystąpienia liter w angielskim
 ENGLISH_FREQ = {
     'A': 0.082, 'B': 0.015, 'C': 0.028, 'D': 0.043, 'E': 0.127, 'F': 0.022,
     'G': 0.020, 'H': 0.061, 'I': 0.070, 'J': 0.002, 'K': 0.008, 'L': 0.040,
@@ -39,12 +38,6 @@ def affine_decrypt(ciphertext: str, a: int, b: int) -> str:
 
 
 def english_score(text: str) -> float:
-    """Ocena zgodności tekstu z częstościami liter z tabeli 2.1 (nie chi^2).
-
-    Średnia prawdopodobieństw liter z ENGLISH_FREQ; wyższy wynik oznacza
-    większą zgodność z typowym tekstem angielskim. Próg w find_key (0.055)
-    to prosty heurystyczny cut-off, nie test statystyczny.
-    """
     text = clean_text(text)
     if not text:
         return 0.0
@@ -184,10 +177,6 @@ def main():
         for ra, rb, reason in invalid:
             print(f"  (a, b) = ({ra}, {rb})  -> {reason}")
     print()
-    print(
-        "Note: plaintext quality uses english_score = mean of letter "
-        "probabilities from Table 2.1 (heuristic threshold 0.055, not chi^2)."
-    )
 
 
 if __name__ == "__main__":
